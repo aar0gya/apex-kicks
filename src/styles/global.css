@@ -506,9 +506,170 @@ body::before {
 }
 
 /* ─── Prevent horizontal overflow globally ────────────────── */
-section,
-header,
-footer,
-div {
+/* Scope away from dropdown/sheet so flex layouts work correctly */
+section:not(.apex-exempt),
+header:not(.apex-exempt),
+footer:not(.apex-exempt),
+div:not(.apex-exempt) {
   max-width: 100%;
+}
+
+/* ─── Dropdown & sheet: reset all size constraints ──────────── */
+/* position:fixed dropdowns escape all parent layout contexts,
+   but we also need to kill the cascaded max-width:100% on every
+   child div so flex:1 text columns are not crushed to zero.    */
+.apex-dropdown,
+.apex-dropdown *,
+.apex-sheet,
+.apex-sheet * {
+  max-width: none !important;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   MOBILE ENHANCEMENTS
+   All rules scoped to max-width: 768px so desktop is untouched
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ─── Smooth scrolling & momentum ──────────────────────────── */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ─── Touch tap feedback ────────────────────────────────────── */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ─── Buttons: bigger tap targets, active press state ──────── */
+  .btn-primary,
+  .btn-outline {
+    min-height: 48px;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    font-size: 14px !important;
+    border-radius: 2px;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, box-shadow 0.2s, opacity 0.15s !important;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.97);
+    opacity: 0.88;
+  }
+
+  .btn-outline:active {
+    transform: scale(0.97);
+    opacity: 0.88;
+  }
+
+  /* ─── Filter buttons: taller tap area ──────────────────────── */
+  .filter-btn {
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    font-size: 11px !important;
+    touch-action: manipulation;
+  }
+
+  .filter-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* ─── Product cards: lift on tap instead of hover ──────────── */
+  .product-card {
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s !important;
+  }
+
+  .product-card:active {
+    transform: scale(0.98) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* ─── Scroll reveal: faster on mobile ──────────────────────── */
+  .reveal {
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  }
+
+  /* ─── Page enter: snappier ──────────────────────────────────── */
+  .page-enter {
+    animation-duration: 0.3s !important;
+  }
+
+  /* ─── Nav links: larger touch area ─────────────────────────── */
+  .nav-link,
+  .nav-link-main {
+    min-height: 44px;
+    display: inline-flex !important;
+    align-items: center;
+    touch-action: manipulation;
+  }
+
+  /* ─── Input fields: prevent iOS zoom (must be 16px+) ───────── */
+  .input-field,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+    border-radius: 0 !important;
+    /* prevents iOS rounding */
+  }
+
+  /* ─── Section labels: slightly larger ──────────────────────── */
+  .section-label {
+    font-size: 10px !important;
+    letter-spacing: 0.24em !important;
+  }
+
+  /* ─── Marquee: slightly slower on mobile ───────────────────── */
+  .marquee-track {
+    animation-duration: 24s !important;
+  }
+
+  /* ─── Shoe float: gentler on mobile ────────────────────────── */
+  @keyframes float-mobile {
+
+    0%,
+    100% {
+      transform: translateY(0px) rotate(-4deg);
+    }
+
+    50% {
+      transform: translateY(-12px) rotate(-2deg);
+    }
+  }
+
+  .shoe-float {
+    animation-name: float-mobile !important;
+    animation-duration: 3.5s !important;
+  }
+
+  /* ─── Testimonial cards: no hover lift (tap only) ──────────── */
+  .testimonial-card:hover {
+    transform: none !important;
+  }
+
+  .testimonial-card:active {
+    transform: translateY(-3px) !important;
+  }
+
+  /* ─── Scrollbar: hide on mobile (wastes space) ──────────────── */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    scrollbar-width: none;
+  }
+
+  /* ─── Typography scale-up for readability ──────────────────── */
+  .display-heading {
+    letter-spacing: 0.01em !important;
+  }
+
+  .tag-badge {
+    font-size: 9px !important;
+    letter-spacing: 0.1em !important;
+  }
 }
