@@ -13,11 +13,11 @@
 [![Clerk](https://img.shields.io/badge/Auth-Clerk-6C47FF?style=flat-square&logo=clerk&logoColor=white)](https://clerk.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-FF2200?style=flat-square)](LICENSE)
 
-[Live Demo](#) · [Report a Bug](issues) · [Request a Feature](issues)
+[Live Demo](https://apex-kicks.vercel.app/) · [Report a Bug](issues) · [Request a Feature](issues)
 
 ---
 
-![APEX KICKS Hero](public/hero-img.png)
+![APEX KICKS Hero](public/favivon.ico)
 
 </div>
 
