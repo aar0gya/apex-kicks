@@ -17,8 +17,6 @@
 
 ---
 
-![APEX KICKS Hero](public/favivon.ico)
-
 </div>
 
 ---
