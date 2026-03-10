@@ -1,0 +1,154 @@
+// apex-backend/prisma/schema.prisma
+// Phase 5 addition: isAdmin Boolean field on User model.
+// Run after replacing this file:
+//   npx prisma db push
+//   npx prisma generate
+//
+// To make yourself admin, run in psql or NeonDB console:
+//   UPDATE "User" SET "isAdmin" = true WHERE email = 'your@email.com';
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── User ──────────────────────────────────────────────────────
+model User {
+  id        String   @id          // Clerk user ID
+  email     String   @unique
+  name      String?
+  avatar    String?
+  isAdmin   Boolean  @default(false)   // ← Phase 5
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders    Order[]
+  wishlist  WishlistItem[]
+  addresses Address[]
+  cart      CartItem[]
+}
+
+// ── Product ───────────────────────────────────────────────────
+model Product {
+  id          Int           @id
+  name        String
+  brand       String        @default("APEX")
+  price       Int                      // cents
+  tag         String?
+  category    String
+  description String?
+  isActive    Boolean       @default(true)
+  sizes       ProductSize[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// ── ProductSize ───────────────────────────────────────────────
+model ProductSize {
+  id                String   @id @default(cuid())
+  productId         Int
+  product           Product  @relation(fields: [productId], references: [id])
+  size              String
+  stock             Int      @default(0)
+  lowStockThreshold Int      @default(3)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([productId, size])
+}
+
+// ── Order ─────────────────────────────────────────────────────
+model Order {
+  id               String       @id @default(cuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id])
+  status           OrderStatus  @default(PENDING)
+  subtotal         Int
+  shipping         Int          @default(0)
+  total            Int
+  stripePaymentId  String?
+  addressId        String?
+  address          Address?     @relation(fields: [addressId], references: [id])
+  trackingNumber   String?
+  trackingCarrier  String?
+  trackingUrl      String?
+  items            OrderItem[]
+  events           OrderEvent[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+// ── OrderEvent ────────────────────────────────────────────────
+model OrderEvent {
+  id        String      @id @default(cuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id])
+  status    OrderStatus
+  note      String?
+  createdAt DateTime    @default(now())
+}
+
+// ── OrderItem ─────────────────────────────────────────────────
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  size      String
+  qty       Int
+  price     Int
+  name      String?
+}
+
+// ── WishlistItem ──────────────────────────────────────────────
+model WishlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId Int
+  addedAt   DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+// ── CartItem ──────────────────────────────────────────────────
+model CartItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId Int
+  size      String
+  qty       Int      @default(1)
+  addedAt   DateTime @default(now())
+
+  @@unique([userId, productId, size])
+}
+
+// ── Address ───────────────────────────────────────────────────
+model Address {
+  id        String  @id @default(cuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  firstName String
+  lastName  String
+  line1     String
+  line2     String?
+  city      String
+  state     String
+  zip       String
+  country   String  @default("US")
+  isDefault Boolean @default(false)
+  orders    Order[]
+}

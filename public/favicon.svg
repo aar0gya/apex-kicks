@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Octagon background -->
+  <polygon points="9,2 23,2 30,9 30,23 23,30 9,30 2,23 2,9"
+           fill="#FF2200"/>
+  <!-- Bold A letterform -->
+  <text x="16" y="23"
+        font-family="Arial Black, sans-serif"
+        font-weight="900"
+        font-size="20"
+        fill="white"
+        text-anchor="middle"
+        letter-spacing="-1">A</text>
+</svg>
