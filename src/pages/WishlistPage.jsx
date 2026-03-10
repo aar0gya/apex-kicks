@@ -124,8 +124,7 @@ export default function WishlistPage() {
   const {
     wishlistItems,
     wishlistLoading,
-    removeFromWishlist,
-    toggleWishlist,
+    removeFromWishlist
   } = useWishlist();
   const { addToCart } = useCart();
 

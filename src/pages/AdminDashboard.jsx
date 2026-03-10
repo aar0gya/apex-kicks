@@ -3,7 +3,7 @@
 // Tabs: Overview (analytics + chart) · Orders · Customers · Inventory
 // Protected: only renders if user.isAdmin === true (checked via backend)
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
@@ -114,7 +114,6 @@ function StatCard({ label, value, sub, subColor, icon }) {
 function RevenueChart({ data }) {
     if (!data?.length) return null;
     const max = Math.max(...data.map(d => d.revenue), 1);
-    const last7 = data.slice(-7);
 
     return (
         <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '20px 24px' }}>
@@ -262,6 +261,7 @@ function OrdersTab({ getToken, addToast }) {
     const [selected, setSelected] = useState(null);   // order detail modal
     const [saving, setSaving] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const load = useCallback(async () => {
         setLoading(true);
         try {
@@ -424,7 +424,7 @@ function OrderDetailPanel({ order, onSave, saving, onClose }) {
         setTracking(order.trackingNumber || '');
         setCarrier(order.trackingCarrier || '');
         setUrl(order.trackingUrl || '');
-    }, [order.id, order.status]);
+    }, [order.id, order.status, order.trackingNumber, order.trackingCarrier, order.trackingUrl, order.status]);
 
     function handleSave() {
         onSave({
@@ -591,6 +591,7 @@ function CustomersTab({ getToken, addToast }) {
     const [search, setSearch] = useState('');
     const [selected, setSelected] = useState(null);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const load = useCallback(async () => {
         setLoading(true);
         try {
@@ -891,6 +892,7 @@ export default function AdminDashboard() {
     const [stats, setStats] = useState(null);
 
     // Get token + verify admin on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (!isLoaded) return;
         if (!isLoggedIn) { navigate('/sign-in'); return; }

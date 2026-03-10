@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { STATS } from '../../data/products';
-import { HERO_IMAGE } from '../../data/shoeImages';
 import useBreakpoint from '../../hooks/useBreakPoint';
 import { useState } from 'react';
 
@@ -85,7 +84,7 @@ function Hero({ onShopClick }) {
 
                                 {/* Real shoe image */}
                                 <img
-                                    src="/apex-logo.png"
+                                    src={HERO_IMAGE}
                                     alt="APEX PHANTOM"
                                     onLoad={() => setImgLoaded(true)}
                                     className="shoe-float"

@@ -1,11 +1,9 @@
 // apex-kicks/src/pages/DropsPage.jsx
-import { useState, useEffect, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useInView       from '../hooks/useInView';
-import useBreakpoint   from '../hooks/useBreakPoint';
-import { useCart }     from '../context/CartContext';
+import { useState, useEffect, useMemo } from 'react';
+import useInView from '../hooks/useInView';
+import useBreakpoint from '../hooks/useBreakPoint';
+import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { getShoeImage } from '../data/shoeImages';
 
 // ─────────────────────────────────────────────────────────────
 //  Drop data  (12 drops across all statuses)
@@ -15,15 +13,15 @@ const photo = (id, w = 800, h = 520) =>
 
 // Unsplash IDs mapped to product photo IDs (reuse same sneaker shots)
 const P = {
-  1:  '1542291026-7eec264c27ff',
-  2:  '1606107557195-0e29a4b5b4aa',
-  3:  '1543508282-6319a3e2621f',
-  4:  '1608231387042-66d1773d3028',
-  5:  '1600185365926-3a2ce3cdb9eb',
-  6:  '1595950653106-6c9ebd614d3a',
-  7:  '1539185441755-769473a23570',
-  8:  '1491553895911-0055eca6402d',
-  9:  '1525966222134-fcfa99b8ae77',
+  1: '1542291026-7eec264c27ff',
+  2: '1606107557195-0e29a4b5b4aa',
+  3: '1543508282-6319a3e2621f',
+  4: '1608231387042-66d1773d3028',
+  5: '1600185365926-3a2ce3cdb9eb',
+  6: '1595950653106-6c9ebd614d3a',
+  7: '1539185441755-769473a23570',
+  8: '1491553895911-0055eca6402d',
+  9: '1525966222134-fcfa99b8ae77',
   10: '1584735175315-9d5df23860e6',
   11: '1605408499391-6368c628ef42',
   12: '1587563871167-1ee9c731aefb',
@@ -142,13 +140,13 @@ const DROPS = [
 ];
 
 const STATUS_FILTERS = ['ALL', 'LIVE NOW', 'UPCOMING', 'RAFFLE', 'SOLD OUT'];
-const CAT_FILTERS    = ['ALL', 'RUNNING', 'LIFESTYLE', 'TRAINING', 'COLLAB'];
+const CAT_FILTERS = ['ALL', 'RUNNING', 'LIFESTYLE', 'TRAINING', 'COLLAB'];
 
 const STATUS_META = {
-  live:      { label: 'LIVE NOW',   color: '#22C55E', pulse: true  },
-  upcoming:  { label: 'UPCOMING',   color: '#FBBF24', pulse: false },
-  raffle:    { label: 'RAFFLE',     color: '#A78BFA', pulse: true  },
-  'sold-out':{ label: 'SOLD OUT',   color: '#6B7280', pulse: false },
+  live: { label: 'LIVE NOW', color: '#22C55E', pulse: true },
+  upcoming: { label: 'UPCOMING', color: '#FBBF24', pulse: false },
+  raffle: { label: 'RAFFLE', color: '#A78BFA', pulse: true },
+  'sold-out': { label: 'SOLD OUT', color: '#6B7280', pulse: false },
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -201,10 +199,10 @@ function CountdownSep() {
 //  StatusBadge
 // ─────────────────────────────────────────────────────────────
 function StatusBadge({ status, size = 'sm' }) {
-  const meta = STATUS_META[status];
-  const fs   = size === 'lg' ? 10 : 8;
-  const px   = size === 'lg' ? 12 : 8;
-  const py   = size === 'lg' ? 5  : 3;
+  const _meta = STATUS_META[status];
+  const fs = size === 'lg' ? 10 : 8;
+  const px = size === 'lg' ? 12 : 8;
+  const py = size === 'lg' ? 5 : 3;
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: `${meta.color}18`, border: `1px solid ${meta.color}55`, padding: `${py}px ${px}px` }}>
       {meta.pulse && (
@@ -223,8 +221,8 @@ function StatusBadge({ status, size = 'sm' }) {
 // ─────────────────────────────────────────────────────────────
 function NotifyModal({ drop, onClose }) {
   const [email, setEmail] = useState('');
-  const [done,  setDone]  = useState(false);
-  const [vis,   setVis]   = useState(false);
+  const [done, setDone] = useState(false);
+  const [vis, setVis] = useState(false);
 
   useEffect(() => {
     requestAnimationFrame(() => setVis(true));
@@ -236,7 +234,8 @@ function NotifyModal({ drop, onClose }) {
     const fn = e => { if (e.key === 'Escape') close(); };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   function close() { setVis(false); setTimeout(onClose, 300); }
 
@@ -278,9 +277,9 @@ function NotifyModal({ drop, onClose }) {
 function HeroSpotlight({ drops, isMobile, px }) {
   const [active, setActive] = useState(0);
   const [fading, setFading] = useState(false);
-  const { addToCart }       = useCart();
+  const { addToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
-  const drop    = drops[active];
+  const drop = drops[active];
   const wishlisted = isWishlisted(drop.id);
   const [notifyOpen, setNotifyOpen] = useState(false);
 
@@ -294,6 +293,7 @@ function HeroSpotlight({ drops, isMobile, px }) {
   useEffect(() => {
     const t = setInterval(() => go((active + 1) % drops.length), 7000);
     return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, drops.length]);
 
   if (!drop) return null;
@@ -396,11 +396,11 @@ function DropCountdown({ target, accent, label = 'DROPS IN' }) {
       <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 9, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.35)' }}>{label}</div>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6 }}>
         {d > 0 && <><CountdownTile value={d} label="DAYS" accent={accent} /><CountdownSep /></>}
-        <CountdownTile value={h} label="HRS"  accent={accent} />
+        <CountdownTile value={h} label="HRS" accent={accent} />
         <CountdownSep />
-        <CountdownTile value={m} label="MIN"  accent={accent} />
+        <CountdownTile value={m} label="MIN" accent={accent} />
         <CountdownSep />
-        <CountdownTile value={s} label="SEC"  accent={accent} />
+        <CountdownTile value={s} label="SEC" accent={accent} />
       </div>
     </div>
   );
@@ -410,17 +410,17 @@ function DropCountdown({ target, accent, label = 'DROPS IN' }) {
 //  Drop Card
 // ─────────────────────────────────────────────────────────────
 function DropCard({ drop, inView, delay }) {
-  const [hovered, setHovered]   = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [notifyOpen, setNotifyOpen] = useState(false);
-  const { addToCart }           = useCart();
+  const { addToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
-  const { isMobile }            = useBreakpoint();
-  const wishlisted              = isWishlisted(drop.id);
-  const isSoldOut               = drop.status === 'sold-out';
-  const isLive                  = drop.status === 'live';
-  const meta                    = STATUS_META[drop.status];
-  const imgH                    = isMobile ? 220 : 280;
+  const { isMobile } = useBreakpoint();
+  const wishlisted = isWishlisted(drop.id);
+  const isSoldOut = drop.status === 'sold-out';
+  const isLive = drop.status === 'live';
+  const _meta = STATUS_META[drop.status];
+  const imgH = isMobile ? 220 : 280;
 
   return (
     <>
@@ -548,11 +548,11 @@ function StatsRow({ inView }) {
 // ─────────────────────────────────────────────────────────────
 export default function DropsPage() {
   const [statusFilter, setStatusFilter] = useState('ALL');
-  const [catFilter,    setCatFilter]    = useState('ALL');
+  const [catFilter, setCatFilter] = useState('ALL');
   const [statsRef, statsInView] = useInView(0.1);
-  const [gridRef,  gridInView]  = useInView(0.04);
+  const [gridRef, gridInView] = useInView(0.04);
   const { isMobile, isTablet } = useBreakpoint();
-  const px   = isMobile ? 20 : isTablet ? 32 : 56;
+  const px = isMobile ? 20 : isTablet ? 32 : 56;
   const cols = isMobile ? 1 : isTablet ? 2 : 3;
 
   // Map filter label → status key
@@ -563,6 +563,7 @@ export default function DropsPage() {
     return DROPS
       .filter(d => !sKey || d.status === sKey)
       .filter(d => catFilter === 'ALL' || d.category === catFilter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter, catFilter]);
 
   // Spotlight = featured live/upcoming drops only

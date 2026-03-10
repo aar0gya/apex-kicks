@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // ============================================================
 //  APEX KICKS — Shoe Image Registry  (v5 — Single-Source Angles)
 //

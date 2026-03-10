@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link } from 'react-router-dom';
 import { FOOTER_LINKS } from '../../data/products';
 import useBreakpoint from '../../hooks/useBreakPoint';
@@ -14,11 +15,11 @@ function Footer() {
         <footer style={{ background: '#050505', borderTop: '1px solid rgba(255,255,255,0.06)', padding: `${py}px ${px}px ${isMobile ? 32 : 40}px` }}>
             <div style={{ maxWidth: 1400, margin: '0 auto' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: typeof cols === 'string' ? cols : `repeat(${cols},1fr)`, gap: isMobile ? 32 : 48, marginBottom: isMobile ? 40 : 56 }}>
-
+                    {/* Brand */}
                     <div>
                         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, textDecoration: 'none' }}>
-                            <div style={{ width: 30, height: 30, fontFamily: "Barlow Condensed", background: 'var(--red)', color: 'var(--white)', display: 'flex', borderRadius: 5 , alignItems: 'center', justifyContent: 'center', fontSize: 20}}> A </div>
-                            <span style={{ fontFamily: "Barlow Condensed", fontSize: 20, letterSpacing: '0.12em', color: 'var(--white)' }}>APEX KICKS</span>
+                            <div style={{ width: 30, height: 30, background: 'var(--red)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>⚡</div>
+                            <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 20, letterSpacing: '0.12em', color: 'var(--white)' }}>APEX KICKS</span>
                         </Link>
                         <p style={{ color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, fontSize: 13, maxWidth: 260 }}>
                             Premium sneakers engineered at the intersection of performance and street culture.
@@ -34,24 +35,24 @@ function Footer() {
                         <div key={title}>
                             <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 10, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.35)', marginBottom: 16 }}>{title}</div>
                             {links.map(link => (
-                                <a key={link} href="#" style={{ display: 'block', marginBottom: 10, color: 'rgba(255,255,255,0.5)', fontFamily: "'Barlow',sans-serif", fontSize: 13, textDecoration: 'none' }}>{link}</a>
-                            ))}
-                        </div>
+                                < a key = { link } href = "#" style = {{ display: 'block', marginBottom: 10, color: 'rgba(255,255,255,0.5)', fontFamily: "'Barlow',sans-serif", fontSize: 13, textDecoration: 'none' }}>{link}</a>
                     ))}
                 </div>
-
-                <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', marginBottom: 24 }} />
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: isMobile ? 'column' : 'row', gap: 12 }}>
-                    <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 11, fontFamily: "'Barlow',sans-serif" }}>© 2025 APEX KICKS. ALL RIGHTS RESERVED.</span>
-                    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-end' }}>
-                        {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(l => (
-                            <a key={l} href="#" style={{ color: 'rgba(255,255,255,0.25)', fontSize: 10, fontFamily: "'Barlow Condensed',sans-serif", letterSpacing: '0.08em', textDecoration: 'none' }}>{l}</a>
-                        ))}
-                    </div>
-                </div>
+          ))}
             </div>
-        </footer>
-    );
+
+            <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', marginBottom: 24 }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: isMobile ? 'column' : 'row', gap: 12 }}>
+                <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 11, fontFamily: "'Barlow',sans-serif" }}>© 2025 APEX KICKS. ALL RIGHTS RESERVED.</span>
+                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-end' }}>
+                    {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(l => (
+                        < a key = { l } href = "#" style = {{ color: 'rgba(255,255,255,0.25)', fontSize: 10, fontFamily: "'Barlow Condensed',sans-serif", letterSpacing: '0.08em', textDecoration: 'none' }}>{l}</a>
+            ))}
+            </div>
+        </div>
+      </div >
+    </footer >
+  );
 }
 
 export default Footer;

@@ -67,6 +67,7 @@ function QuickViewModal({ product, onClose }) {
         const fn = e => { if (e.key === 'Escape') handleClose(); };
         window.addEventListener('keydown', fn);
         return () => window.removeEventListener('keydown', fn);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function handleClose() {
@@ -324,7 +325,6 @@ export default function CollectionPage() {
     const [viewMode, setViewMode] = useState('grid'); // grid | list
     const [searchQuery, setSearchQuery] = useState('');
     const [quickViewProduct, setQuickViewProduct] = useState(null);
-    const [filtersOpen, setFiltersOpen] = useState(false);
     const searchRef = useRef(null);
     const { isMobile, isTablet } = useBreakpoint();
     const px = isMobile ? 20 : isTablet ? 32 : 56;
@@ -350,6 +350,7 @@ export default function CollectionPage() {
         const fn = e => { if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) { e.preventDefault(); searchRef.current?.focus(); } };
         window.addEventListener('keydown', fn);
         return () => window.removeEventListener('keydown', fn);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const gridCols = !isMobile && viewMode === 'list' ? 1 : cols;
