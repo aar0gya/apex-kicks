@@ -85,7 +85,7 @@ function Hero({ onShopClick }) {
 
                                 {/* Real shoe image */}
                                 <img
-                                    src="/apex-logo.png"
+                                    src={HERO_IMAGE}
                                     alt="APEX PHANTOM"
                                     onLoad={() => setImgLoaded(true)}
                                     className="shoe-float"
