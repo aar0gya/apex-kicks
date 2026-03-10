@@ -15,7 +15,7 @@ const TIMELINE = [
 
 const TEAM = [
     { name: 'KAI MORRISON', role: 'FOUNDER & CEO', accent: '#FF2200', quote: 'We build for the relentless.' },
-    { name: 'DR. YUKI TANAKA', role: 'HEAD OF ENGINEERING', accent: '#38BDF8', quote: 'The physics don\'t lie.' },
+    { name: 'AAROGYA BIKRAM THAPA', role: 'HEAD OF ENGINEERING', accent: '#38BDF8', quote: 'The physics don\'t lie.' },
     { name: 'SOFIA GUERRA', role: 'CREATIVE DIRECTOR', accent: '#FBBF24', quote: 'Design is a conversation with culture.' },
     { name: 'AMARA DIALLO', role: 'SUSTAINABILITY LEAD', accent: '#34D399', quote: 'The planet doesn\'t have a deadline. We do.' },
 ];
