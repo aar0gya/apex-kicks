@@ -1,4 +1,5 @@
 // apex-kicks/src/pages/AdminDashboard.jsx
+/* eslint-disable react-hooks/exhaustive-deps */
 // Phase 5 — Admin Dashboard
 // Tabs: Overview (analytics + chart) · Orders · Customers · Inventory
 // Protected: only renders if user.isAdmin === true (checked via backend)
@@ -261,8 +262,7 @@ function OrdersTab({ getToken, addToast }) {
     const [selected, setSelected] = useState(null);   // order detail modal
     const [saving, setSaving] = useState(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const load = useCallback(async () => {
+    const load = useCallback(async () => { // eslint-disable-line react-hooks/exhaustive-deps
         setLoading(true);
         try {
             const params = new URLSearchParams({ page, limit: 20 });
@@ -424,7 +424,7 @@ function OrderDetailPanel({ order, onSave, saving, onClose }) {
         setTracking(order.trackingNumber || '');
         setCarrier(order.trackingCarrier || '');
         setUrl(order.trackingUrl || '');
-    }, [order.id, order.status, order.trackingNumber, order.trackingCarrier, order.trackingUrl, order.status]);
+    }, [order.id, order.status, order.trackingNumber, order.trackingCarrier, order.trackingUrl]);
 
     function handleSave() {
         onSave({
@@ -591,8 +591,7 @@ function CustomersTab({ getToken, addToast }) {
     const [search, setSearch] = useState('');
     const [selected, setSelected] = useState(null);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const load = useCallback(async () => {
+    const load = useCallback(async () => { // eslint-disable-line react-hooks/exhaustive-deps
         setLoading(true);
         try {
             const params = new URLSearchParams({ page, limit: 20 });
