@@ -419,6 +419,7 @@ function DropCard({ drop, inView, delay }) {
   const wishlisted = isWishlisted(drop.id);
   const isSoldOut = drop.status === 'sold-out';
   const isLive = drop.status === 'live';
+  // eslint-disable-next-line no-unused-vars
   const _meta = STATUS_META[drop.status];
   const imgH = isMobile ? 220 : 280;
 
