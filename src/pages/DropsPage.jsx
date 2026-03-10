@@ -199,7 +199,7 @@ function CountdownSep() {
 //  StatusBadge
 // ─────────────────────────────────────────────────────────────
 function StatusBadge({ status, size = 'sm' }) {
-  const _meta = STATUS_META[status];
+  const meta = STATUS_META[status];
   const fs = size === 'lg' ? 10 : 8;
   const px = size === 'lg' ? 12 : 8;
   const py = size === 'lg' ? 5 : 3;

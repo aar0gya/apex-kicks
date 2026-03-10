@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { STATS } from '../../data/products';
+import { HERO_IMAGE } from '../../data/shoeImages';
 import useBreakpoint from '../../hooks/useBreakPoint';
 import { useState } from 'react';
 
